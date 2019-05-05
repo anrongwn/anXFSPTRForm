@@ -34,6 +34,10 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
+
+win32:INCLUDEPATH += "D:\MyTest\2019_Qt\anXFSPTRForm\deps\include"
+
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
