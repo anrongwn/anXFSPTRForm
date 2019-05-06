@@ -4,9 +4,7 @@
 #include "anfiledata.h"
 
 struct mapped{
-    mapped(){
-
-    }
+    mapped()=default;
 
     anFileData operator()(const QString& filename){
         anFileData fd;
@@ -21,13 +19,12 @@ struct mapped{
         return fd;
     }
 
+    typedef anFileData result_type;
 };
 
 
 struct reduced{
-    reduced(){
-
-    }
+    reduced()=default;
 
     void operator ()(anFileData_v &form, const anFileData &data){
         form.push_back(data);

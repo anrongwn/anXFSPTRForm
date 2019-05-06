@@ -104,11 +104,39 @@ void MainWindow::on_filev_finished()
     anFileV filev = watcher_->result();
     qDebug()<<"MainWindow::on_filev_finished filev = " << filev.size()<< ",tid=" << QThread::currentThreadId() ;
 
-    //QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, mapped(), reduced());
+    /*//
+    QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, mapped(), reduced(), \
+                                                               QtConcurrent::OrderedReduce|QtConcurrent::SequentialReduce);
+                                                               */
+/*//
+    auto fn1 = [](const QString& filename)->anFileData{
+        anFileData fd;
+        fd.setFileName(filename);
+
+        QFile f(filename);
+        if (f.open(QIODevice::ReadOnly)){
+            fd.push_data(f.readAll());
+        }
+        f.close();
+
+        //qDebug()<<"MainWindow::filedata_mapped(" << filename <<"), tid=" << QThread::currentThreadId();
+        return fd;
+    };
+
+    auto fn2 = [&](anFileData_v &form, const anFileData &data){
+        form.push_back(data);
+    };
+
+
+    QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, fn1, fn2, \
+                                                               QtConcurrent::OrderedReduce|QtConcurrent::SequentialReduce);
+                                                               */
+
 
 
     QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, MainWindow::filedata_mapped, MainWindow::filedata_reduced, \
                                                                QtConcurrent::OrderedReduce|QtConcurrent::SequentialReduce);
+
     result.waitForFinished();
 
     anFileData_v form = result.result();
