@@ -26,10 +26,13 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    anfiledata.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    anfiledata.h \
+    anfile_mapreduce.h
 
 FORMS += \
         mainwindow.ui
