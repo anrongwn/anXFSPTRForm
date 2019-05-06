@@ -6,6 +6,7 @@
 struct mapped{
     mapped()=default;
 
+    typedef anFileData result_type;
     anFileData operator()(const QString& filename){
         anFileData fd;
         fd.setFileName(filename);
@@ -19,13 +20,13 @@ struct mapped{
         return fd;
     }
 
-    typedef anFileData result_type;
 };
 
 
 struct reduced{
     reduced()=default;
 
+    typedef anFileData_v result_type;
     void operator ()(anFileData_v &form, const anFileData &data){
         form.push_back(data);
     }

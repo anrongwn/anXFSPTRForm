@@ -104,10 +104,14 @@ void MainWindow::on_filev_finished()
     anFileV filev = watcher_->result();
     qDebug()<<"MainWindow::on_filev_finished filev = " << filev.size()<< ",tid=" << QThread::currentThreadId() ;
 
-    /*//
-    QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, mapped(), reduced(), \
-                                                               QtConcurrent::OrderedReduce|QtConcurrent::SequentialReduce);
+
+
+    /*//function object mapped
+    QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, mapped(), MainWindow::filedata_reduced, \
+                                                               QtConcurrent::SequentialReduce);
                                                                */
+
+
 /*//
     auto fn1 = [](const QString& filename)->anFileData{
         anFileData fd;
@@ -134,8 +138,10 @@ void MainWindow::on_filev_finished()
 
 
 
+    //static function
     QFuture<anFileData_v> result = QtConcurrent::mappedReduced(filev, MainWindow::filedata_mapped, MainWindow::filedata_reduced, \
                                                                QtConcurrent::OrderedReduce|QtConcurrent::SequentialReduce);
+
 
     result.waitForFinished();
 
