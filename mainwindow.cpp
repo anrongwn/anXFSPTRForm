@@ -27,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    /*
+    if (watcher_){
+        watcher_->deleteLater();
+    }
+    */
 }
 
 anFileV MainWindow::getfilevector(const QString &path)
